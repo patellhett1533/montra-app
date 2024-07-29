@@ -3,21 +3,20 @@ import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Signup extends StatefulWidget {
-  static const route = '/signup';
-  const Signup({super.key});
+class Login extends StatefulWidget {
+  static const route = '/login';
+  const Login({super.key});
 
   @override
-  _SignupState createState() => _SignupState();
+  _LoginState createState() => _LoginState();
 }
 
 void _login() {
   print('Login');
 }
 
-class _SignupState extends State<Signup> {
+class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  bool _termsAndConditions = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class _SignupState extends State<Signup> {
                   children: [
                     Text(
                       textAlign: TextAlign.center,
-                      "Sign Up",
+                      "Login",
                       style: TextStyle(
                           fontSize: 24,
                           color: AppColors.dark[50],
@@ -48,28 +47,6 @@ class _SignupState extends State<Signup> {
                 Form(
                     key: _formKey,
                     child: Column(children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Name",
-                            hintStyle: TextStyle(color: AppColors.light[20]),
-                            enabledBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16)),
-                                borderSide:
-                                    BorderSide(color: Color(0xffEEE5FF))),
-                            focusedBorder: const OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16)),
-                                borderSide:
-                                    BorderSide(color: Color(0xffEEE5FF)))),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your name';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
                       TextFormField(
                         decoration: InputDecoration(
                             hintText: "Email",
@@ -126,38 +103,13 @@ class _SignupState extends State<Signup> {
                         },
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Checkbox(
-                              activeColor: AppColors.violet[100],
-                              side: const BorderSide(
-                                color: Color(0xff7F3DFF),
-                              ),
-                              value: _termsAndConditions,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  _termsAndConditions = value!;
-                                });
-                              }),
-                          const Flexible(
-                            child: Text(
-                              'By signing up, you agree to the Terms of Service and Privacy Policy',
-                            ),
-                          ),
-                        ],
-                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: const Text("Forgot Password?")),
                       const SizedBox(height: 20),
                       GestureDetector(
                         onTap: () {
-                          if (_formKey.currentState!.validate() &&
-                              _termsAndConditions) {
-                            print("Signup SuccessFully");
-                          } else {
-                            print("Please accept terms and conditions");
-                          }
+                          print("Login");
                         },
                         child: Container(
                           width: double.infinity,
@@ -168,49 +120,19 @@ class _SignupState extends State<Signup> {
                               borderRadius: BorderRadius.circular(16)),
                           child: Text(
                             textAlign: TextAlign.center,
-                            "Sign Up",
+                            "Login",
                             style: TextStyle(
                                 fontSize: 18, color: AppColors.light[80]),
                           ),
                         ),
                       )
                     ])),
-                const SizedBox(height: 20),
-                const Text("Or With"),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () {
-                    print("Google Sign Up SuccessFully");
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 20),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xffEEE5FF)),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(AppIcons.google),
-                        const SizedBox(width: 10),
-                        Text(
-                          textAlign: TextAlign.center,
-                          "Sign Up with Google",
-                          style: TextStyle(
-                              fontSize: 18, color: AppColors.dark[100]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 10),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?"),
-                    TextButton(onPressed: _login, child: Text("Login"))
+                    Text("Don't have an account?"),
+                    TextButton(onPressed: _login, child: Text("Signup"))
                   ],
                 )
               ],

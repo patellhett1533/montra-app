@@ -9,10 +9,10 @@ class AppColors {
   };
 
   static const Map<int, Color> light = <int, Color>{
-    20: Color(0xffE3E5E5),
+    20: Color(0xff91919F),
     40: Color(0xffF2F4F5),
     60: Color(0xffF7F9FA),
-    80: Color(0xffFBFBFB),
+    80: Color(0xffFCFCFC),
     100: Color(0xffffffff),
   };
 

@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:montra_app/constants/colors.dart';
+import 'package:montra_app/constants/icons.dart';
+import 'package:montra_app/screens/auth/login.dart';
+import 'package:montra_app/screens/auth/sent_email.dart';
+import 'package:montra_app/screens/auth/signup.dart';
+import 'package:montra_app/screens/home.dart';
+import 'package:montra_app/screens/transactions.dart';
+
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({super.key});
+
+  @override
+  State<BottomNavigation> createState() => _BottomNavigationState();
+}
+
+class _BottomNavigationState extends State<BottomNavigation> {
+  int _selectedIndex = 0;
+  final List<Widget> _screens = [
+    const Home(),
+    const Transactions(),
+    const Signup(),
+    const SentEmail(),
+  ];
+
+  final PageStorageBucket _bucket = PageStorageBucket();
+  Widget _currentScreen = const Home();
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: PageStorage(
+        bucket: _bucket,
+        child: _currentScreen,
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        splashColor: AppColors.violet[100],
+        onPressed: () {},
+        backgroundColor: AppColors.violet[100],
+        child: SvgPicture.asset(AppIcons.addLogo),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          _selectedIndex = 0;
+                          _currentScreen = const Home();
+                        });
+                      },
+                      child: SvgPicture.asset(_selectedIndex == 0
+                          ? AppIcons.homeLogoActive
+                          : AppIcons.homeLogo)),
+                  MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          _selectedIndex = 1;
+                          _currentScreen = const Transactions();
+                        });
+                      },
+                      child: SvgPicture.asset(_selectedIndex == 1
+                          ? AppIcons.transactionLogoActive
+                          : AppIcons.transactionLogo)),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          _selectedIndex = 2;
+                          _currentScreen = const Signup();
+                        });
+                      },
+                      child: SvgPicture.asset(_selectedIndex == 2
+                          ? AppIcons.budgetLogoActive
+                          : AppIcons.budgetLogo)),
+                  MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          _selectedIndex = 3;
+                          _currentScreen = const SentEmail();
+                        });
+                      },
+                      child: SvgPicture.asset(_selectedIndex == 3
+                          ? AppIcons.profileLogoActive
+                          : AppIcons.profileLogo)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    ));
+  }
+}
