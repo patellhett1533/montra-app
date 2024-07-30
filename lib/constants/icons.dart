@@ -27,4 +27,9 @@ class AppIcons {
   static const String attachmentLogo = '${_basePath}attachment.svg';
   static const String sortLogo = '${_basePath}sort.svg';
   static const String rightArrowActive = '${_basePath}active_right.svg';
+  static const String editLogo = '${_basePath}edit.svg';
+  static const String walletLogo = '${_basePath}wallet.svg';
+  static const String settingLogo = '${_basePath}settings.svg';
+  static const String uploadLogo = '${_basePath}upload.svg';
+  static const String logoutLogo = '${_basePath}logout.svg';
 }

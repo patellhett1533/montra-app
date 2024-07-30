@@ -11,77 +11,214 @@ class Transactions extends StatefulWidget {
 }
 
 class _TransactionsState extends State<Transactions> {
+  String? _selectedValue;
+
+  final List<String> _options = ["shopping", "food", "travel", "other"];
+
   void _showFilterBottomSheet() {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.5,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: 40,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: AppColors.light[20],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return ConstrainedBox(
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.8),
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 40,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: AppColors.light[20],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Filter Transactions",
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Filter Transactions",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.dark[100])),
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 14, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: AppColors.violet[20],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text("Reset",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: AppColors.violet[100])),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Filter By",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.dark[100])),
+                            const SizedBox(height: 10),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: _ButtonBox("Income"),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: _ButtonBox("Expense",
+                                      color: AppColors.violet[20],
+                                      textColor: AppColors.violet[100]),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: _ButtonBox("Transfer"),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Sort By",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.dark[100])),
+                            const SizedBox(height: 10),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: _ButtonBox("Highest"),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: _ButtonBox(
+                                    "Lowest",
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: _ButtonBox("Newest"),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: _ButtonBox("Oldest"),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text("Category",
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.dark[100])),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: AppColors.violet[20],
-                              borderRadius: BorderRadius.circular(20),
+                        const SizedBox(height: 10),
+                        DropdownButtonFormField(
+                          value: _selectedValue,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
                             ),
-                            child: Text("Reset",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.violet[100])),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.light[20]!),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: AppColors.light[20]!),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                            ),
+                            hintText: "Choose Category",
+                            hintStyle: TextStyle(
+                              color: AppColors.dark[25],
+                            ),
+                          ),
+                          items: _options
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          dropdownColor: AppColors.light[100],
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print("apply filter");
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 20),
+                            decoration: BoxDecoration(
+                                color: AppColors.violet[100],
+                                borderRadius: BorderRadius.circular(16)),
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              "Apply",
+                              style: TextStyle(
+                                  fontSize: 18, color: AppColors.light[80]),
+                            ),
                           ),
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Column(
-                      children: [
-                        Text("Filter By",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.dark[100])),
-                        Flexible(
-                            child: Row(
-                          children: [],
-                        ))
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
+                  )
+                ],
+              ),
+            ),
           ),
         );
       },
@@ -302,15 +439,18 @@ class _TransactionsState extends State<Transactions> {
     );
   }
 
-  Widget _Button(String text, Color? color) {
+  Widget _ButtonBox(String text, {Color? color, Color? textColor}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
       decoration: BoxDecoration(
         color: color ?? Colors.transparent,
+        border: Border.all(
+            color: color != null ? Colors.transparent : AppColors.light[20]!),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(text,
-          style: TextStyle(fontSize: 16, color: AppColors.violet[100])),
+          style:
+              TextStyle(fontSize: 18, color: textColor ?? AppColors.dark[100])),
     );
   }
 }

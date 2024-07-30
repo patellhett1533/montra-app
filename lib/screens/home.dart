@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
 import 'package:montra_app/constants/images.dart';
+import 'package:montra_app/screens/transaction_detail.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -279,69 +280,77 @@ class _HomeState extends State<Home> {
 
   Widget _TransactionCard(Color color, String title, String subtitle,
       String amount, String datem, String icon) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: AppColors.light[80],
-        borderRadius: BorderRadius.circular(24),
-      ),
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: color, borderRadius: BorderRadius.circular(16)),
-                padding: const EdgeInsets.all(10),
-                child: SvgPicture.asset(icon),
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: AppColors.dark[75],
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    subtitle,
-                    softWrap: false,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: AppColors.dark[50],
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                amount,
-                style: TextStyle(
-                    fontSize: 18,
-                    color: AppColors.red[80],
-                    fontWeight: FontWeight.w700),
-              ),
-              Text(
-                datem,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: AppColors.light[20],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TransactionDetail()),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: AppColors.light[80],
+          borderRadius: BorderRadius.circular(24),
+        ),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: color, borderRadius: BorderRadius.circular(16)),
+                  padding: const EdgeInsets.all(10),
+                  child: SvgPicture.asset(icon),
                 ),
-              )
-            ],
-          )
-        ],
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: AppColors.dark[75],
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      subtitle,
+                      softWrap: false,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: AppColors.dark[50],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  amount,
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: AppColors.red[80],
+                      fontWeight: FontWeight.w700),
+                ),
+                Text(
+                  datem,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.light[20],
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

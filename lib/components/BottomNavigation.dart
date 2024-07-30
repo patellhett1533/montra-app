@@ -6,6 +6,8 @@ import 'package:montra_app/screens/auth/login.dart';
 import 'package:montra_app/screens/auth/sent_email.dart';
 import 'package:montra_app/screens/auth/signup.dart';
 import 'package:montra_app/screens/home.dart';
+import 'package:montra_app/screens/profile.dart';
+import 'package:montra_app/screens/transaction_detail.dart';
 import 'package:montra_app/screens/transactions.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -87,7 +89,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                       onPressed: () {
                         setState(() {
                           _selectedIndex = 2;
-                          _currentScreen = const Signup();
+                          _currentScreen = const TransactionDetail();
                         });
                       },
                       child: SvgPicture.asset(_selectedIndex == 2
@@ -98,7 +100,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                       onPressed: () {
                         setState(() {
                           _selectedIndex = 3;
-                          _currentScreen = const SentEmail();
+                          _currentScreen = const Profile();
                         });
                       },
                       child: SvgPicture.asset(_selectedIndex == 3
