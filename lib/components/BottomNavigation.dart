@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:montra_app/components/ExampleFabMenu.dart';
+// import 'package:montra_app/components/AnimatedFabMenu.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
-import 'package:montra_app/screens/auth/login.dart';
-import 'package:montra_app/screens/auth/sent_email.dart';
-import 'package:montra_app/screens/auth/signup.dart';
 import 'package:montra_app/screens/home.dart';
 import 'package:montra_app/screens/profile.dart';
 import 'package:montra_app/screens/transaction_detail.dart';
@@ -19,12 +18,6 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
-  final List<Widget> _screens = [
-    const Home(),
-    const Transactions(),
-    const Signup(),
-    const SentEmail(),
-  ];
 
   final PageStorageBucket _bucket = PageStorageBucket();
   Widget _currentScreen = const Home();
@@ -38,14 +31,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
         bucket: _bucket,
         child: _currentScreen,
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        splashColor: AppColors.violet[100],
-        onPressed: () {},
-        backgroundColor: AppColors.violet[100],
-        child: SvgPicture.asset(AppIcons.addLogo),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: const AnimatedFabMenu(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,

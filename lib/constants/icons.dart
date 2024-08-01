@@ -2,7 +2,7 @@ class AppIcons {
   static const String _basePath = 'assets/icons/';
 
   static const String left_arrow = '${_basePath}arrow-left.svg';
-  static const String whiteLeft = '${_basePath}arrow-left_white.svg';
+  // static const String whiteLeft = '${_basePath}arrow-left_white.svg';
   static const String gray_eye = '${_basePath}show_gray.svg';
   static const String google = '${_basePath}google.svg';
   static const String addLogo = '${_basePath}add.svg';
@@ -32,4 +32,10 @@ class AppIcons {
   static const String settingLogo = '${_basePath}settings.svg';
   static const String uploadLogo = '${_basePath}upload.svg';
   static const String logoutLogo = '${_basePath}logout.svg';
+  static const String whiteExpense = '${_basePath}white_expense.svg';
+  static const String whiteIncome = '${_basePath}white_income.svg';
+  static const String whiteTransfer = '${_basePath}white_transfer.svg';
+  static const String whiteLeft = '${_basePath}white_left.svg';
+  static const String whiteRight = '${_basePath}white_right.svg';
+  static const String warningLogo = '${_basePath}warning.svg';
 }
