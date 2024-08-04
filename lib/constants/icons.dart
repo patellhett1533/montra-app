@@ -15,7 +15,7 @@ class AppIcons {
       '${_basePath}transaction_active.svg';
   static const String profileLogoActive = '${_basePath}user_active.svg';
   static const String budgetLogoActive = '${_basePath}pie-chart_active.svg';
-  static const String notificationLogo = '${_basePath}notification.svg';
+  static const String notificationLogo = '${_basePath}notifiaction.svg';
   static const String incomeLogo = '${_basePath}income.svg';
   static const String expenseLogo = '${_basePath}expense.svg';
   static const String foodLogo = '${_basePath}food.svg';
@@ -35,7 +35,7 @@ class AppIcons {
   static const String whiteExpense = '${_basePath}white_expense.svg';
   static const String whiteIncome = '${_basePath}white_income.svg';
   static const String whiteTransfer = '${_basePath}white_transfer.svg';
-  static const String whiteLeft = '${_basePath}white_left.svg';
+  static const String whiteLeft = '${_basePath}arrow-left_white.svg';
   static const String whiteRight = '${_basePath}white_right.svg';
   static const String warningLogo = '${_basePath}warning.svg';
 }

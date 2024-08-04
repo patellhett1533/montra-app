@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
 import 'package:montra_app/constants/images.dart';
+import 'package:montra_app/screens/notification.dart';
 import 'package:montra_app/screens/transaction_detail.dart';
 
 class Home extends StatefulWidget {
@@ -42,7 +43,13 @@ class _HomeState extends State<Home> {
                           ),
                           const Text("October", style: TextStyle(fontSize: 20)),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const NotificationPage()));
+                              },
                               icon: SvgPicture.asset(AppIcons.notificationLogo))
                         ],
                       ),
