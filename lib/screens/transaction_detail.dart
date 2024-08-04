@@ -90,7 +90,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height * 0.8,
+                      maxHeight: MediaQuery.of(context).size.height * 0.7,
                     ),
                     child: SingleChildScrollView(
                       child: Column(
@@ -176,12 +176,6 @@ class _TransactionDetailState extends State<TransactionDetail> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Description",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.dark[25])),
-                                  const SizedBox(height: 10),
                                   Text(
                                     "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.",
                                     style: TextStyle(
@@ -198,12 +192,6 @@ class _TransactionDetailState extends State<TransactionDetail> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Attachment",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.dark[25])),
-                                  const SizedBox(height: 10),
                                   AspectRatio(
                                       aspectRatio: 29 / 10,
                                       child: ClipRRect(
@@ -218,7 +206,7 @@ class _TransactionDetailState extends State<TransactionDetail> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 20),
                           GestureDetector(
                             onTap: () {},
                             child: Container(
