@@ -32,7 +32,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
         child: _currentScreen,
       ),
       floatingActionButton: const AnimatedFabMenu(),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,

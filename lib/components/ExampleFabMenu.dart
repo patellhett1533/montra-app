@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
+import 'package:montra_app/screens/expense/add_expense.dart';
+import 'package:montra_app/screens/income/add_income.dart';
 
 @immutable
 class AnimatedFabMenu extends StatelessWidget {
@@ -34,7 +36,10 @@ class AnimatedFabMenu extends StatelessWidget {
       distance: 112,
       children: [
         ActionButton(
-          onPressed: () => _showAction(context, 0),
+          onPressed: () => {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddExpense()))
+          },
           icon: SvgPicture.asset(AppIcons.whiteExpense),
           bg: AppColors.red[100]!,
         ),
@@ -44,7 +49,13 @@ class AnimatedFabMenu extends StatelessWidget {
           bg: AppColors.blue[100]!,
         ),
         ActionButton(
-          onPressed: () => _showAction(context, 2),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AddIncome(),
+                ));
+          },
           icon: SvgPicture.asset(AppIcons.whiteIncome),
           bg: AppColors.green[100]!,
         ),
