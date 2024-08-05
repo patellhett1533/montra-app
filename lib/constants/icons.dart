@@ -38,4 +38,5 @@ class AppIcons {
   static const String whiteLeft = '${_basePath}arrow-left_white.svg';
   static const String whiteRight = '${_basePath}white_right.svg';
   static const String warningLogo = '${_basePath}warning.svg';
+  static const String crossLogo = '${_basePath}cross.svg';
 }

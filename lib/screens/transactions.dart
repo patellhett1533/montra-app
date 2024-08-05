@@ -5,6 +5,7 @@ import 'package:montra_app/constants/icons.dart';
 
 class Transactions extends StatefulWidget {
   const Transactions({super.key});
+  static const route = '/transactions';
 
   @override
   State<Transactions> createState() => _TransactionsState();

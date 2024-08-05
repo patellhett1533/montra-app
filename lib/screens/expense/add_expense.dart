@@ -18,19 +18,160 @@ class _AddExpenseState extends State<AddExpense> {
   String? _selectedValue;
   String? _selectedWallet;
   bool _isRepeat = false;
+  File? pickedFile;
+  String? _selectedFrequency;
+  DateTime? _selectedDate;
 
   final List<String> _options = ["shopping", "food", "travel", "other"];
   final List<String> _wallets = ["Cash", "Bank", "Credit Card"];
-  File? pickedFile;
+  final List<String> _frequency = [
+    "Daily",
+    "Weekly",
+    "Monthly",
+    "Quarterly",
+    "Yearly"
+  ];
 
-  Future<File?> pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any, // or FileType.custom with allowedExtensions
+  Future<void> _pickFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    if (result != null) {
+      setState(() {
+        pickedFile = File(result.paths.first!);
+      });
+    } else {
+      print("No file selected");
+    }
+  }
+
+  void _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2025),
     );
+    if (picked != null) {
+      _selectedDate = picked;
+    }
+  }
 
-    if (result == null) return null;
+  void _showCompletePopup() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text("Expense added successfully"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/transactions'),
+                child: const Text('History'),
+              ),
+            ],
+          );
+        });
+  }
 
-    return File(result.files.single.path!);
+  void _showRepeatTransaction() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return ConstrainedBox(
+              constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.8),
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(children: [
+                    DropdownButtonFormField(
+                      value: _selectedFrequency,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.light[20]!),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.light[20]!),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                        ),
+                        hintText: "Frequency",
+                        hintStyle: TextStyle(
+                          color: AppColors.dark[25],
+                        ),
+                      ),
+                      items: _options
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _selectedFrequency = value!;
+                        });
+                      },
+                      dropdownColor: AppColors.light[100],
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        _selectDate(context);
+                      },
+                      //add attachment button same as input field
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 12),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: AppColors.light[20]!,
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              _selectedDate != null
+                                  ? _selectedDate.toString().split(' ')[0]
+                                  : 'Select Date',
+                              style: TextStyle(
+                                  color: AppColors.dark[25],
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: AppColors.violet[100],
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "Next",
+                          style: TextStyle(
+                              fontSize: 18, color: AppColors.light[80]),
+                        ),
+                      ),
+                    )
+                  ]),
+                ),
+              ));
+        });
   }
 
   @override
@@ -208,41 +349,77 @@ class _AddExpenseState extends State<AddExpense> {
                               dropdownColor: AppColors.light[100],
                             ),
                             const SizedBox(height: 20),
-                            GestureDetector(
-                              onTap: () async {
-                                pickedFile = await pickFile();
-                                if (pickedFile != null) {
-                                  // Do something with the picked file, e.g.,
-                                  print(pickedFile!.path);
-                                }
-                              },
-                              //add attachment button same as input field
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 12),
-                                decoration: BoxDecoration(
-                                  color: AppColors.light[100],
-                                  border: Border.all(
-                                    color: AppColors.light[40]!,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(AppIcons.attachmentLogo),
-                                    const SizedBox(width: 12),
-                                    Text(
-                                      "Add Attachment",
-                                      style: TextStyle(
-                                          color: AppColors.dark[25],
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500),
+                            pickedFile == null
+                                ? GestureDetector(
+                                    onTap: () {
+                                      _pickFile();
+                                    },
+                                    //add attachment button same as input field
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 12),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.light[100],
+                                        border: Border.all(
+                                          color: AppColors.light[40]!,
+                                        ),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SvgPicture.asset(
+                                              AppIcons.attachmentLogo),
+                                          const SizedBox(width: 12),
+                                          Text(
+                                            "Add Attachment",
+                                            style: TextStyle(
+                                                color: AppColors.dark[25],
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                                  )
+                                : SizedBox(
+                                    width: double.infinity,
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        Image.file(
+                                          pickedFile!,
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        Positioned(
+                                          top: -10,
+                                          left: 50,
+                                          child: Container(
+                                            width: 20,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors.dark[100],
+                                            ),
+                                            padding: const EdgeInsets.all(2),
+                                            child: IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    pickedFile = null;
+                                                  });
+                                                },
+                                                icon: SvgPicture.asset(
+                                                  AppIcons.crossLogo,
+                                                  width: 15,
+                                                  height: 15,
+                                                )),
+                                          ),
+                                        ),
+                                      ],
+                                    )),
                             const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -264,12 +441,18 @@ class _AddExpenseState extends State<AddExpense> {
                                       setState(() {
                                         _isRepeat = value;
                                       });
+
+                                      if (value == true) {
+                                        _showRepeatTransaction();
+                                      }
                                     }),
                               ],
                             ),
                             const SizedBox(height: 40),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                _showCompletePopup();
+                              },
                               child: Container(
                                 width: double.infinity,
                                 padding: const EdgeInsets.symmetric(
