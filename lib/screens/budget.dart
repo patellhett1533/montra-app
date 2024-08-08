@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
+import 'package:montra_app/screens/budget/add_budget.dart';
 
 class Budget extends StatelessWidget {
   const Budget({super.key});
@@ -64,6 +65,28 @@ class Budget extends StatelessWidget {
                     _buildBudgetCategory(
                         AppColors.green[100]!, "Shopping", 1200, 1000, context),
                     const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AddBudget()));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: AppColors.violet[100],
+                            borderRadius: BorderRadius.circular(16)),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "Add Budget",
+                          style: TextStyle(
+                              fontSize: 18, color: AppColors.light[80]),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
