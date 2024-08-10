@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
@@ -6,8 +7,82 @@ import 'package:montra_app/constants/images.dart';
 import 'package:montra_app/screens/profile/export.dart';
 import 'package:montra_app/screens/profile/setting.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  void _showRepeatTransaction() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return ConstrainedBox(
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.8),
+            child: SingleChildScrollView(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    const Text("Are you sure do you wanna logout?",
+                        style: TextStyle(fontSize: 18)),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: FittedBox(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 60),
+                              decoration: BoxDecoration(
+                                  color: AppColors.violet[20],
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "No",
+                                style: TextStyle(
+                                    fontSize: 18, color: AppColors.violet[100]),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: () {},
+                          child: FittedBox(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 60),
+                              decoration: BoxDecoration(
+                                  color: AppColors.violet[100],
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "Yes",
+                                style: TextStyle(
+                                    fontSize: 18, color: AppColors.light[80]),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,28 +221,33 @@ class Profile extends StatelessWidget {
                     thickness: 1,
                     color: AppColors.light[40],
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 16),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppColors.red[20],
-                            borderRadius: BorderRadius.circular(16),
+                  GestureDetector(
+                    onTap: () {
+                      _showRepeatTransaction();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.red[20],
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: SvgPicture.asset(AppIcons.logoutLogo),
                           ),
-                          child: SvgPicture.asset(AppIcons.logoutLogo),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Logout",
-                          style: TextStyle(
-                              fontSize: 20, color: AppColors.dark[100]),
-                        )
-                      ],
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Logout",
+                            style: TextStyle(
+                                fontSize: 20, color: AppColors.dark[100]),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

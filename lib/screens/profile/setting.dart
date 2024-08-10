@@ -4,6 +4,8 @@ import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
 import 'package:montra_app/screens/profile/currency.dart';
 import 'package:montra_app/screens/profile/language.dart';
+import 'package:montra_app/screens/profile/notification.dart';
+import 'package:montra_app/screens/profile/theme.dart';
 
 class Setting extends StatelessWidget {
   const Setting({super.key});
@@ -29,7 +31,13 @@ class Setting extends StatelessWidget {
             }),
             _settingMenuBox('Theme', 'Light', () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Language()));
+                  MaterialPageRoute(builder: (context) => const ThemeSelect()));
+            }),
+            _settingMenuBox('Notification', '', () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NotificatioSetting()));
             }),
           ],
         ),
