@@ -41,4 +41,5 @@ class AppIcons {
   static const String crossLogo = '${_basePath}cross.svg';
   static const String prevLogo = '${_basePath}white-left.svg';
   static const String nextLogo = '${_basePath}white-right.svg';
+  static const String successLogo = '${_basePath}success.svg';
 }

@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
 import 'package:montra_app/screens/budget/add_budget.dart';
+import 'package:montra_app/screens/budget/detail_budget.dart';
 
 class Budget extends StatelessWidget {
   const Budget({super.key});
@@ -99,85 +100,93 @@ class Budget extends StatelessWidget {
 
   Widget _buildBudgetCategory(Color color, String category, int amount,
       int total, BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColors.light[40],
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.light[20]!),
-                  borderRadius: BorderRadius.circular(999),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.circular(16),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BudgetDetail()),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: AppColors.light[40],
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.light[20]!),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 18,
+                        height: 18,
+                        decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      category,
-                      style:
-                          TextStyle(fontSize: 18, color: AppColors.dark[100]),
-                    ),
-                  ],
+                      const SizedBox(width: 10),
+                      Text(
+                        category,
+                        style:
+                            TextStyle(fontSize: 18, color: AppColors.dark[100]),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              amount > total
-                  ? SvgPicture.asset(AppIcons.warningLogo)
-                  : Container(),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Text(
-            "Remaining \$${amount < total ? total - amount : 0}",
-            style: TextStyle(fontSize: 24, color: AppColors.dark[100]),
-          ),
-          const SizedBox(height: 10),
-          Stack(
-            children: [
-              Container(
-                height: 10,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColors.light[20],
-                  borderRadius: BorderRadius.circular(10),
+                amount > total
+                    ? SvgPicture.asset(AppIcons.warningLogo)
+                    : Container(),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              "Remaining \$${amount < total ? total - amount : 0}",
+              style: TextStyle(fontSize: 24, color: AppColors.dark[100]),
+            ),
+            const SizedBox(height: 10),
+            Stack(
+              children: [
+                Container(
+                  height: 10,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColors.light[20],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-              ),
-              Container(
-                height: 10,
-                width: MediaQuery.of(context).size.width * (amount / total),
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            "\$$amount of \$$total",
-            style: TextStyle(fontSize: 18, color: AppColors.dark[100]),
-          ),
-          const SizedBox(height: 10),
-          amount > total
-              ? Text("You have exceed the limit !",
-                  style: TextStyle(fontSize: 16, color: AppColors.red[100]!))
-              : Container(),
-        ],
+                Container(
+                  height: 10,
+                  width: MediaQuery.of(context).size.width * (amount / total),
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              "\$$amount of \$$total",
+              style: TextStyle(fontSize: 18, color: AppColors.dark[100]),
+            ),
+            const SizedBox(height: 10),
+            amount > total
+                ? Text("You have exceed the limit !",
+                    style: TextStyle(fontSize: 16, color: AppColors.red[100]!))
+                : Container(),
+          ],
+        ),
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:montra_app/constants/colors.dart';
 import 'package:montra_app/constants/icons.dart';
 import 'package:montra_app/constants/images.dart';
+import 'package:montra_app/screens/profile/export.dart';
+import 'package:montra_app/screens/profile/setting.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -69,84 +71,75 @@ class Profile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24)),
               child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 16),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppColors.violet[20],
-                            borderRadius: BorderRadius.circular(16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Setting()),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.violet[20],
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: SvgPicture.asset(AppIcons.settingLogo),
                           ),
-                          child: SvgPicture.asset(AppIcons.walletLogo),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Account",
-                          style: TextStyle(
-                              fontSize: 20, color: AppColors.dark[100]),
-                        )
-                      ],
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Setting",
+                            style: TextStyle(
+                                fontSize: 20, color: AppColors.dark[100]),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Divider(
                     thickness: 1,
                     color: AppColors.light[40],
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 16),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppColors.violet[20],
-                            borderRadius: BorderRadius.circular(16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ExportData()),
+                      );
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 16),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.violet[20],
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: SvgPicture.asset(AppIcons.uploadLogo),
                           ),
-                          child: SvgPicture.asset(AppIcons.settingLogo),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Setting",
-                          style: TextStyle(
-                              fontSize: 20, color: AppColors.dark[100]),
-                        )
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    thickness: 1,
-                    color: AppColors.light[40],
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 16),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppColors.violet[20],
-                            borderRadius: BorderRadius.circular(16),
+                          const SizedBox(
+                            width: 20,
                           ),
-                          child: SvgPicture.asset(AppIcons.uploadLogo),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Export Data",
-                          style: TextStyle(
-                              fontSize: 20, color: AppColors.dark[100]),
-                        )
-                      ],
+                          Text(
+                            "Export Data",
+                            style: TextStyle(
+                                fontSize: 20, color: AppColors.dark[100]),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Divider(
